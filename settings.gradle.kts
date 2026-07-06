@@ -24,3 +24,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Production"
 include(":app")
+include(":Production")

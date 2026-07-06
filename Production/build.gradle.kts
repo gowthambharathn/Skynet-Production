@@ -1,20 +1,22 @@
 plugins {
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.compose)
+    id("maven-publish")
 }
 
 android {
-    namespace = "skynetbee.developers.production"
-    compileSdk = 37
+    namespace = "skynetbee.developers.production.library"
+    compileSdk = 36
 
     defaultConfig {
-        applicationId = "skynetbee.developers.production"
-        minSdk = 24
-        targetSdk = 36
-        versionCode = 1
-        versionName = "1.0"
-
+        minSdk = 26
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
     }
 
     buildTypes {
@@ -26,31 +28,24 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+
     buildFeatures {
         compose = true
     }
 }
 
 dependencies {
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.ui)
-    implementation(libs.androidx.compose.ui.graphics)
-    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.appcompat)
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.material)
     testImplementation(libs.junit)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
-    debugImplementation(libs.androidx.compose.ui.test.manifest)
-    debugImplementation(libs.androidx.compose.ui.tooling)
 
     //signinwithgoogle
     implementation("com.google.android.gms:play-services-auth:21.5.0")
@@ -61,11 +56,6 @@ dependencies {
     //sql
     implementation("net.zetetic:sqlcipher-android:4.14.1@aar")
     implementation("androidx.sqlite:sqlite:2.6.2")
-    implementation("androidx.appcompat:appcompat:1.7.1")
-
-    //Icons
-    implementation("androidx.compose.material3:material3")
-    implementation("androidx.compose.material:material-icons-extended")
 
     //Viewmodel
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.1")
@@ -77,5 +67,25 @@ dependencies {
     implementation("androidx.media3:media3-common:1.8.0")
     implementation("androidx.media3:media3-transformer:1.8.0")
 
-    implementation(project(":Production"))
+    //Compose
+    implementation(platform(libs.androidx.compose.bom))
+    implementation("androidx.compose.ui:ui")
+    implementation("androidx.compose.foundation:foundation")
+    implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.material:material-icons-extended")
+    implementation("androidx.activity:activity-compose:1.11.0")
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("maven") {
+                from(components["release"])
+
+                groupId = "com.github.gowthambharathn"
+                artifactId = "production"
+                version = "1.0.1"
+            }
+        }
+    }
 }
