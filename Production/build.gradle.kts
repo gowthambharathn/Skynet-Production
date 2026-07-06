@@ -9,7 +9,7 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        minSdk = 26
+        minSdk = 24
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -84,7 +84,7 @@ afterEvaluate {
 
                 groupId = "com.github.gowthambharathn"
                 artifactId = "production"
-                version = "1.0.1"
+                version = "1.0.2"
             }
         }
     }
