@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "skynetbee.developers.production.library"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         minSdk = 24
