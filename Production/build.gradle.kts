@@ -84,7 +84,7 @@ afterEvaluate {
 
                 groupId = "com.github.gowthambharathn"
                 artifactId = "production"
-                version = "1.0.3"
+                version = "1.0.4"
             }
         }
     }
