@@ -22,6 +22,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Production"
+rootProject.name = "ProductionWorkspace"
 include(":app")
-include(":Production")
+include(":production-library")
+project(":production-library").projectDir = file("Production")
