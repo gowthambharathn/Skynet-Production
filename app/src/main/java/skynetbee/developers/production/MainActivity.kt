@@ -1,8 +1,10 @@
 package skynetbee.developers.production
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.runtime.Composable
+import skynetbee.developers.production.NeuralEngine.UIFunctions.Utils.background.Background
 import skynetbee.developers.production.NeuralEngine.UIFunctions.Utils.background.Packagename
 
 class MainActivity : ComponentActivity() {
@@ -12,40 +14,45 @@ class MainActivity : ComponentActivity() {
 
         Packagename.init(packageName)
 
-        testDatabase()
-    }
-
-    private fun testDatabase() {
-
-        if (DF.db == null || !DF.db!!.isOpen) {
-            Log.e("DB_TEST", "❌ Database not opened")
-            return
+        setContent {
+            Background()
+            GraphScreen()
         }
-
-        // Create table if it doesn't exist
-        val createResult = DF.executeQuery("""
-        CREATE TABLE IF NOT EXISTS test_table (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL
-        );
-    """.trimIndent())
-
-        Log.d("DB_TEST", "Create Table: $createResult")
-
-        val result = sql.insert(
-            tableName = "all_system_developer_details",
-            kvp = mapOf(
-                "official_name" to "Gowtham Barath",
-                "email" to "gowtham@example.com",
-                "phone" to "9876543210",
-                "unique_member_id" to "DEV001",
-                "otp" to "123456",
-                "overallstars" to "5",
-                "cp" to "100",
-                "rank" to "Developer"
-            )
-        )
-
-        Log.d("DB_TEST", result.toString())
     }
+}
+
+@Composable
+fun GraphScreen() {
+
+    val graphData = mapOf(
+        "TCS" to listOf(
+            120f,
+            135f,
+            128f,
+            150f,
+            165f,
+            180f
+        )
+    )
+
+    OneLineGraph(
+        title = "TCS Share Price",
+        dataValues = graphData,
+        xAxisValues = listOf(
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun"
+        ),
+        yAxisValues = listOf(
+            0f,
+            50f,
+            100f,
+            150f,
+            200f,
+            250f
+        )
+    )
 }
