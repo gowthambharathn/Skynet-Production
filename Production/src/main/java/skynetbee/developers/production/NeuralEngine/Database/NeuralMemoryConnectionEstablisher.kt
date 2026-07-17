@@ -101,4 +101,4 @@ open class NeuralMemoryConnectionEstablisher {
 }
 
 
-
+val NM = NeuralMemoryConnectionEstablisher()

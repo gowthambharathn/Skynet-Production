@@ -27,8 +27,9 @@ import kotlin.math.sin
  * Created by Gowtham Barath
  * Date: 25-06-2026
  */
+
 @Composable
-fun Background() {
+fun Background1() {
     val infiniteTransition = rememberInfiniteTransition(label = "mesh")
     val time by infiniteTransition.animateFloat(
         initialValue = 0f,
